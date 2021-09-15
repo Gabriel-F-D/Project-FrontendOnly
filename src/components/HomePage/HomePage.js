@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import useDogosApi from '../../hooks/useDogosApi';
 import LosDoggos from '../LosDoggos/LosDoggos';
 import styles from './HomePage.module.css';
@@ -9,7 +9,7 @@ const HomePage = () => {
 
     if (isLoading) {
         return (
-            <img src='../img/perroGif.gif' className={styles.loading}/>
+            <img src='../img/perroGif.gif' alt="que miras?" className={styles.loading}/>
         )
     }
 

@@ -7,7 +7,6 @@ import styles from '../LosDoggos/LosDoggos.module.css'
 function LosDoggos({ data }) {
     const [currentPage, setCurrentPage] = useState(0);
     const [saveData, setSaveData] = useState([]);
-    // const [fltrTemp, setFltrTemp] = useState('');
     const [filtros, setFiltros] = useState({
         temperamento: '',
         creator: '',
@@ -26,26 +25,6 @@ function LosDoggos({ data }) {
     }, [data, filtros])
 
 
-    // export function sortCreate(state, creator){
-    //     if(creator === "Api"){
-    //       return state.filter(p => !(isNaN(p.id)))
-    //     } else if(creator === "Own"){                    //para el sort de api y db
-    //       return state.filter(p => isNaN(p.id))
-    //     } else {
-    //       return state
-    //     }
-    //   }
-
-    // arrData = arrData.filter(sDtaF => sDtaF.temperamentos?.includes(filtros.temperamento))
-
-
-    // if (filtros.temperamento) {                  //solo sirve para el filtro de DB
-    //     if (filtros.creator === 'DB') {
-    //         Array.isArray(arrData.temperamentos) ? arrData = arrData.temperamentos.filter(dbT => dbT.Nombre.includes(filtros.temperamento))
-    //         : arrData = arrData.filter(sDtaF => sDtaF.temperamentos?.includes(filtros.temperamento))
-    //     }
-    // }
-
 
     const filtered = () => {
         let arrData = [...data]
@@ -63,11 +42,6 @@ function LosDoggos({ data }) {
             })
         }
 
-
-        // if (filtros.temperamento) {
-        //     Array.isArray(arrData.temperamentos) ? arrData = arrData.temperamentos.filter(dbT => dbT.Nombre.includes(filtros.temperamento))
-        //     : arrData = arrData.filter(sDtaF => sDtaF.temperamentos?.includes(filtros.temperamento))
-        // }
         if (filtros.creator) {
             arrData = filtros.creator === 'api' ?
                 arrData.filter(sDtaF => !isNaN(sDtaF.id))
