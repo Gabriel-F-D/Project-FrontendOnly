@@ -13,7 +13,6 @@ export default function dogosReducer(state = initialState, { type, payload }) {
                 ...state,
                 dogos: payload
             }
-            break;
         default:
             return state
     }

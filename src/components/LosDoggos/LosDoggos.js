@@ -15,6 +15,34 @@ function LosDoggos({ data }) {
 
 
     useEffect(() => {
+        const filtered = () => {
+            let arrData = [...data]
+            if (filtros.temperamento) {
+                arrData = arrData.filter(sDtaF => {
+                    if (Array.isArray(sDtaF.temperamentos)) {
+                        let include = false;
+                        sDtaF.temperamentos.forEach(temp => {
+                            if (temp.Nombre === filtros.temperamento) include = true;
+                        })
+                        return include;
+                    } else {
+                        return sDtaF.temperamentos?.includes(filtros.temperamento)
+                    }
+                })
+            }
+    
+            if (filtros.creator) {
+                arrData = filtros.creator === 'api' ?
+                    arrData.filter(sDtaF => !isNaN(sDtaF.id))
+                    : arrData.filter(sDtaF => isNaN(sDtaF.id))
+            }
+            if (filtros.search) {
+                arrData = arrData.filter(sDtaF => sDtaF.nombre.toLowerCase().includes(filtros.search.toLowerCase()))
+            }
+    
+            setSaveData(arrData)
+        }
+
         if (typeof (data === 'object')) {
             setSaveData(data);
         }
@@ -26,33 +54,7 @@ function LosDoggos({ data }) {
 
 
 
-    const filtered = () => {
-        let arrData = [...data]
-        if (filtros.temperamento) {
-            arrData = arrData.filter(sDtaF => {
-                if (Array.isArray(sDtaF.temperamentos)) {
-                    let include = false;
-                    sDtaF.temperamentos.forEach(temp => {
-                        if (temp.Nombre === filtros.temperamento) include = true;
-                    })
-                    return include;
-                } else {
-                    return sDtaF.temperamentos?.includes(filtros.temperamento)
-                }
-            })
-        }
-
-        if (filtros.creator) {
-            arrData = filtros.creator === 'api' ?
-                arrData.filter(sDtaF => !isNaN(sDtaF.id))
-                : arrData.filter(sDtaF => isNaN(sDtaF.id))
-        }
-        if (filtros.search) {
-            arrData = arrData.filter(sDtaF => sDtaF.nombre.toLowerCase().includes(filtros.search.toLowerCase()))
-        }
-
-        setSaveData(arrData)
-    }
+    
 
     const doggosPerPage = () => {
         return saveData.slice(currentPage, currentPage + 8)
@@ -168,7 +170,7 @@ function LosDoggos({ data }) {
                 <div className={styles.search}>
                     <Link to='/'>
 
-                    <img src='../img/dog.png' className={styles.logito} />
+                    <img src='../img/dog.png' alt="" className={styles.logito} />
                     </Link>
                     <input
                         className={styles.inputStilito}
@@ -254,7 +256,7 @@ function LosDoggos({ data }) {
                             <div className={styles.doggoContainer}>
                                 <h2 className={styles.doggoName}>Breed: {dogo.nombre}</h2>
                                 <div className={styles.doggoImg} > <img src={dogo.img ?
-                                    dogo.img : "https://www.pngitem.com/pimgs/m/95-952226_imagenes-de-snoopy-png-transparent-png.png"} /> </div>
+                                    dogo.img : "https://www.pngitem.com/pimgs/m/95-952226_imagenes-de-snoopy-png-transparent-png.png"} alt="" /> </div>
                                 <h5>Moods:</h5>
                                 <span>{Array.isArray(dogo.temperamentos) ? dogo.temperamentos.map(t => t.Nombre).join(', ') : dogo.temperamentos}</span>
                                 <Link to={`/doggoDetail/${dogo.id}`} style={{ textDecoration: 'none' }} >
