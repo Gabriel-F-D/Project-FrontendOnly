@@ -17,7 +17,7 @@ function AddDoggo() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const response = await fetch('http://localhost:3001/', {
+        const response = await fetch('https://project-doggo.herokuapp.com/', {
             method: "POST",
             headers: {
                 Accept: "application/json",
